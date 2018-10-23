@@ -1,0 +1,6 @@
+etcd/
+github.com/
+golang.org/
+.idea/
+*.in
+*.out
