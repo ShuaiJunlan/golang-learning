@@ -15,7 +15,7 @@ func main() {
 	//printFile("large.out")
 
 	//network merge
-	p := createNetworkPipeline("large.in", 2400000000, 4)
+	p := createNetworkPipeline("large.in", 800000000, 4)
 	writeToFile(p, "large.out")
 	printFile("large.out")
 
