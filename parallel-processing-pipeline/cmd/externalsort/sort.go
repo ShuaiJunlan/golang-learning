@@ -5,12 +5,20 @@ import (
 	"fmt"
 	"os"
 	"parallel-processing-pipeline/pipline"
+	"strconv"
 )
 
 func main() {
-	p := createPipeline("small.in", 400, 4)
-	writeToFile(p, "small.out")
-	printFile("small.out")
+	//single instance
+	//p := createPipeline("large.in", 800000000, 4)
+	//writeToFile(p, "large.out")
+	//printFile("large.out")
+
+	//network merge
+	p := createNetworkPipeline("large.in", 2400000000, 4)
+	writeToFile(p, "large.out")
+	printFile("large.out")
+
 }
 func printFile(filename string) {
 	file, err := os.Open(filename)
@@ -19,8 +27,14 @@ func printFile(filename string) {
 	}
 	defer file.Close()
 	p := pipline.ReaderSource(file, -1)
+
+	count := 0
 	for v := range p {
 		fmt.Println(v)
+		count++
+		if count >= 100 {
+			break
+		}
 	}
 }
 func writeToFile(p <-chan int, filename string) {
@@ -38,6 +52,8 @@ func createPipeline(fileName string,
 	fileSize, chunkCount int) <-chan int {
 	chunkSize := fileSize / chunkCount
 
+	pipline.Init()
+
 	sortResults := []<-chan int{}
 	for i := 0; i < chunkCount; i++ {
 		file, err := os.Open(fileName)
@@ -48,6 +64,36 @@ func createPipeline(fileName string,
 		source := pipline.ReaderSource(bufio.NewReader(file), chunkSize)
 		sortResults = append(sortResults, pipline.InMemorySort(source))
 
+	}
+	return pipline.MergeN(sortResults...)
+}
+
+func createNetworkPipeline(fileName string,
+	fileSize, chunkCount int) <-chan int {
+	chunkSize := fileSize / chunkCount
+
+	pipline.Init()
+
+	sortAddr := []string{}
+	for i := 0; i < chunkCount; i++ {
+		file, err := os.Open(fileName)
+		if err != nil {
+			panic(err)
+		}
+		file.Seek(int64(i*chunkSize), 0)
+		source := pipline.ReaderSource(bufio.NewReader(file), chunkSize)
+
+		addr := ":" + strconv.Itoa(7000+i)
+		pipline.NetworkSink(addr,
+			pipline.InMemorySort(source))
+		sortAddr = append(sortAddr, addr)
+
+		//sortResults = append(sortResults, pipline.InMemorySort(source))
+
+	}
+	sortResults := []<-chan int{}
+	for _, addr := range sortAddr {
+		sortResults = append(sortResults, pipline.NetworkSource(addr))
 	}
 	return pipline.MergeN(sortResults...)
 }

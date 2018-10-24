@@ -2,10 +2,18 @@ package pipline
 
 import (
 	"encoding/binary"
+	"fmt"
 	"io"
 	"math/rand"
 	"sort"
+	"time"
 )
+
+var startTime time.Time
+
+func Init() {
+	startTime = time.Now()
+}
 
 func ArraySource(a ...int) <-chan int {
 	out := make(chan int)
@@ -18,16 +26,18 @@ func ArraySource(a ...int) <-chan int {
 	return out
 }
 func InMemorySort(in <-chan int) <-chan int {
-	out := make(chan int)
+	out := make(chan int, 1024)
 	go func() {
 		//Read into memory
 		a := []int{}
 		for v := range in {
 			a = append(a, v)
 		}
+		fmt.Println("Read done:", time.Now().Sub(startTime))
 
 		//Sort
 		sort.Ints(a)
+		fmt.Println("InMemorySort done:", time.Now().Sub(startTime))
 
 		//output
 		for _, v := range a {
@@ -39,7 +49,7 @@ func InMemorySort(in <-chan int) <-chan int {
 }
 
 func Merge(in1, in2 <-chan int) <-chan int {
-	out := make(chan int)
+	out := make(chan int, 1024)
 	go func() {
 		v1, ok1 := <-in1
 		v2, ok2 := <-in2
@@ -53,12 +63,13 @@ func Merge(in1, in2 <-chan int) <-chan int {
 			}
 		}
 		close(out)
+		fmt.Println("Merge done:", time.Now().Sub(startTime))
 	}()
 	return out
 }
 
 func ReaderSource(reader io.Reader, chunkSize int) <-chan int {
-	out := make(chan int)
+	out := make(chan int, 1024) // setting channel buffer
 	go func() {
 		buffer := make([]byte, 8)
 		bytesRead := 0
