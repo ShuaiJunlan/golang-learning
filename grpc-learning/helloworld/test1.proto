@@ -6,18 +6,18 @@ package test1;
 // The greeting service definition.
 service Greeter {
   // Sends a greeting
-  rpc SayHello (HelloRequest) returns (HelloReply) {}
+  rpc SayHello1 (HelloRequest1) returns (HelloReply1) {}
 
   // Say hello again
-  rpc SayHelloAgain(HelloRequest) returns (HelloReply) {}
+  rpc SayHelloAgain1(HelloRequest1) returns (HelloReply1) {}
 }
 
 // The request message containing the user's name.
-message HelloRequest {
+message HelloRequest1 {
   string name = 1;
 }
 
 // The response message containing the greetings
-message HelloReply {
+message HelloReply1 {
   string message = 1;
 }
