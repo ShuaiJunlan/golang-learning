@@ -4,7 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"os"
-	"parallel-processing-pipeline/pipline"
+	"../../pipline"
 	"strconv"
 )
 

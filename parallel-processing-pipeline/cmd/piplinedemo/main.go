@@ -1,10 +1,10 @@
 package main
 
 import (
+	"../../pipline"
 	"bufio"
 	"fmt"
 	"os"
-	"parallel-processing-pipeline/pipline"
 )
 
 func main() {
