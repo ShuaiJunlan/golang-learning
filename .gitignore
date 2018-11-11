@@ -4,3 +4,7 @@ golang.org/
 .idea/
 *.in
 *.out
+bin/
+pkg/
+go.etcd.io
+google.golang.org/
