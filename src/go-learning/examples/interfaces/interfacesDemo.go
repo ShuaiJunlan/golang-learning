@@ -41,6 +41,8 @@ func measure(g geometry) {
 func main()  {
 	r := rect{width:3, height:4}
 	c := circle{radius:5}
+	//var hello int32 = 10
+	//fmt.Println(hello)
 	measure(r)
 	measure(c)
 }
