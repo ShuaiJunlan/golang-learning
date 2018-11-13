@@ -16,6 +16,7 @@ type SessionStore struct {
 func (st *SessionStore) Set(key, value interface{}) error {
 	st.value[key] = value
 	//pder.sessions
+	return nil
 }
 type Provider struct {
 	lock sync.Mutex
