@@ -29,12 +29,13 @@ func login(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("method:", r.Method)
 
 	if r.Method == "GET" {
-		crutime := time.Now().Unix()
+		currentTime := time.Now().Unix()
 		h := md5.New()
-		io.WriteString(h, strconv.FormatInt(crutime, 10))
+		io.WriteString(h, strconv.FormatInt(currentTime, 10))
 		token := fmt.Sprintf("%x", h.Sum(nil))
 
 		t, _ := template.ParseFiles("front-end/login.html")
+		w.Header().Set("Content-Type", "text/html")
 		log.Println(t.Execute(w, token))
 	} else {
 		r.ParseForm() //?? So?
