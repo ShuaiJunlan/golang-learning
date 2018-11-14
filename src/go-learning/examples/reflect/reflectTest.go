@@ -9,6 +9,11 @@ type User struct {
 	Name string
 	Age  int
 }
+
+type Hello interface {
+	Print(prefix string)
+}
+
 //http://www.flysnow.org/2017/06/13/go-in-action-go-reflect.html
 func main() {
 	u := User{"shuaijunlan", 23}
@@ -35,5 +40,5 @@ func main() {
 }
 
 func (u User)Print(prefix string) {
-	fmt.Printf("%s:Name is %s, Age is %d", prefix, u.Name, u.Age)
+	fmt.Printf("%s:Name is %s, Age is %d \n", prefix, u.Name, u.Age)
 }
