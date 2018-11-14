@@ -29,6 +29,7 @@ func addEdge(from, to string) bool {
 		graph[from] = edges
 	}
 	edges[to] = true
+	return hasEdge(from, to)
 }
 func hasEdge(from, to string) bool {
 	return graph[from][to]
