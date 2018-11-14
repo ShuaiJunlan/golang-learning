@@ -77,7 +77,6 @@ func main() {
 
 	db.Close()
 
-
 }
 
 func checkErr(err error) {
