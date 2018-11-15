@@ -1,6 +1,7 @@
 package main
 
 import "fmt"
+
 //https://blog.golang.org/defer-panic-and-recover
 func main() {
 	test1()
