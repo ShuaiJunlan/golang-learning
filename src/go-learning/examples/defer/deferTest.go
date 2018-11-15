@@ -2,7 +2,7 @@ package main
 
 import "fmt"
 
-//https://blog.golang.org/defer-panic-and-recover
+//TODO: https://blog.golang.org/defer-panic-and-recover
 func main() {
 	test1()
 	test2()
