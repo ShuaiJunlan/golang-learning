@@ -35,10 +35,9 @@ func main() {
 	args := []reflect.Value{reflect.ValueOf("前缀")}
 	fmt.Println(mPrint.Call(args))
 
-
 	u.Print("hello")
 }
 
-func (u User)Print(prefix string) {
+func (u User) Print(prefix string) {
 	fmt.Printf("%s:Name is %s, Age is %d \n", prefix, u.Name, u.Age)
 }

@@ -6,6 +6,7 @@ import (
 	"runtime"
 	"time"
 )
+
 func main() {
 	switch time.Now().Weekday() {
 	case time.Saturday, time.Sunday:
@@ -17,6 +18,8 @@ func main() {
 	fmt.Println(rand.Intn(1000))
 
 	test1()
+
+	test2()
 }
 
 func test1() {
@@ -26,15 +29,28 @@ func test1() {
 		fmt.Println("OS X.")
 	case "linux":
 		fmt.Println("Linux.")
-	fallthrough //?
+		fallthrough //?
 	case "windows":
 		fmt.Println("windows")
-	fallthrough //?
+		fallthrough //?
 	case "openbsd":
 		fmt.Println("openbsd")
 	default:
 		// freebsd, openbsd,
 		// plan9, windows...
 		fmt.Printf("%s.", os)
+	}
+}
+
+func test2() {
+	t := time.Now()
+	switch {
+	case t.Hour() < 12:
+		fmt.Println("Good morning!")
+	case t.Hour() < 17:
+		fmt.Println("Good afternoon!")
+	default:
+		fmt.Println("Good evening!")
+
 	}
 }
