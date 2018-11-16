@@ -25,7 +25,7 @@ func (s *common) Len() int {
 	return s.data.Len()
 }
 
-func (s * common)IsEmpty() bool {
+func (s *common) IsEmpty() bool {
 	if s.autoLock {
 		s.Lock()
 		defer s.Unlock()

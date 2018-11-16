@@ -16,7 +16,7 @@ func NewQueue(autoMutexLock bool) (l *Queue) {
 	return
 }
 
-func (s *Queue)Enqueue(item interface{})(ok bool)  {
+func (s *Queue) Enqueue(item interface{}) (ok bool) {
 	if s.autoLock {
 		s.Lock()
 		defer s.Unlock()
@@ -24,7 +24,7 @@ func (s *Queue)Enqueue(item interface{})(ok bool)  {
 	s.data.PushBack(item)
 	return true
 }
-func (s *Queue) Dequeue()(item interface{}, ok bool)  {
+func (s *Queue) Dequeue() (item interface{}, ok bool) {
 	if s.autoLock {
 		s.Lock()
 		defer s.Unlock()
