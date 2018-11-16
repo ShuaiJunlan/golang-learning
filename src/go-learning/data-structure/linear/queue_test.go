@@ -1,6 +1,7 @@
 package linear
 
 import (
+	"fmt"
 	"sync"
 	"testing"
 	"time"
@@ -160,3 +161,56 @@ func TestQueueInitPopIsNil(t *testing.T) {
 func TestQueueIsEmpty(t *testing.T) {
 	helperInitIsEmpty("queue", NewQueue(false), t)
 }
+
+func TestQueueSkippingNewShouldPanic(t *testing.T) {
+	defer func() {
+		if r := recover(); r == nil {
+			t.Error("the code did not panic")
+		}
+	}()
+	s := Queue{}
+	c := s.Len()
+	fmt.Print(c)
+}
+func TestQueueStringer(t *testing.T) {
+	s := NewQueue(false)
+	v := s.String()
+	if v != "Queue [0]" {
+		t.Error("stringer was incorrect for 0 length" + v)
+	}
+	s.Enqueue(1)
+	s.Enqueue(1)
+	v = s.String()
+	if v != "Queue [2]" {
+		t.Error("stringer was incorrect for 2 length" + v)
+	}
+}
+func BenchmarkQueueSync1000(b *testing.B) {
+	benchQueueSync(1000, b)
+}
+func BenchmarkQueueSync100000(b *testing.B) {
+	benchQueueSync(100000, b)
+}
+func BenchmarkQueueSync1000000(b *testing.B) {
+	benchQueueSync(10000000, b)
+}
+func benchQueueSync(count int, b *testing.B)  {
+	for i := 0; i < count; i++ {
+		q := NewQueue(false)
+		for c := 0; c < count; c++ {
+			if q.Enqueue("a") == false {
+				b.Error("q enqueue failed")
+			}
+		}
+		for c := 0; c < count; c++ {
+			if val, ok := q.Dequeue(); ok == false || val != "a" {
+				b.Error("q dequeue failed")
+			}
+		}
+	}
+}
+
+
+
+
+
