@@ -194,7 +194,7 @@ func BenchmarkQueueSync100000(b *testing.B) {
 func BenchmarkQueueSync1000000(b *testing.B) {
 	benchQueueSync(10000000, b)
 }
-func benchQueueSync(count int, b *testing.B)  {
+func benchQueueSync(count int, b *testing.B) {
 	for i := 0; i < count; i++ {
 		q := NewQueue(false)
 		for c := 0; c < count; c++ {
@@ -209,8 +209,3 @@ func benchQueueSync(count int, b *testing.B)  {
 		}
 	}
 }
-
-
-
-
-
