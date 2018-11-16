@@ -53,5 +53,5 @@ func (s *Queue) String() string {
 		s.Lock()
 		defer s.Unlock()
 	}
-	return "Queue [" + strconv.Itoa(s.data.Len()) + "]"
+	return "Queue [" + strconv.Itoa(s.Len()) + "]"
 }
