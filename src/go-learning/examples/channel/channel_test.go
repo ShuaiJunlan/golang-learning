@@ -35,3 +35,20 @@ func TestChannelBuffer(t *testing.T) {
 		}
 	}
 }
+func TestChannelBufferZeroAndOne(t *testing.T) {
+	var intChannelZero = make(chan int)
+	fmt.Println("cap", cap(intChannelZero))
+	go func() {
+		intChannelZero <- 1
+		fmt.Println("length", len(intChannelZero))
+		close(intChannelZero)
+	}()
+	time.Sleep(time.Second * 2)
+	for {
+		if val, ok := <-intChannelZero; ok {
+			fmt.Println(val)
+		} else {
+			break
+		}
+	}
+}

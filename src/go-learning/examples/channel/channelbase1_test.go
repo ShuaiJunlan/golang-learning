@@ -57,12 +57,15 @@ func receive(strChan <-chan string, syncChan1 <-chan struct{}, syncChan2 chan<- 
 	<-syncChan1
 	fmt.Println("Received a sync signal and wait a second ... [receiver]")
 	time.Sleep(time.Second)
-	for true {
-		if elem, ok := <-strChan; ok {
-			fmt.Println("Received:", elem, "[receiver]")
-		} else {
-			break
-		}
+	//for true {
+	//	if elem, ok := <-strChan; ok {
+	//		fmt.Println("Received:", elem, "[receiver]")
+	//	} else {
+	//		break
+	//	}
+	//}
+	for elem := range strChan {
+		fmt.Println("Received:", elem, "[received]")
 	}
 	fmt.Println("Stopped. [receiver]")
 	syncChan2 <- struct{}{}
