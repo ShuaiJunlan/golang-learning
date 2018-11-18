@@ -7,7 +7,7 @@ import (
 	"time"
 )
 
-func TestMutex(t *testing.T){
+func TestMutex(t *testing.T) {
 	var mutex sync.Mutex
 	fmt.Println("Lock the lock. (main)")
 	mutex.Lock()
