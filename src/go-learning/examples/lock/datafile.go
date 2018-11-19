@@ -50,7 +50,7 @@ func (df *myDataFile) Read() (rsn int64, d Data, err error) {
 
 	for { // why wouldn't use 'for true'
 		df.fmutex.RLock()
-		_, err = df.f.ReadAt(bytes, offset)  // isn't err :=
+		_, err = df.f.ReadAt(bytes, offset) // isn't err :=
 		if err != nil {
 			if err == io.EOF {
 				df.fmutex.RUnlock()
@@ -64,8 +64,6 @@ func (df *myDataFile) Read() (rsn int64, d Data, err error) {
 		return
 	}
 }
-
-
 
 func (df *myDataFile) Write(d Data) (wsn int64, err error) {
 	var offset int64
