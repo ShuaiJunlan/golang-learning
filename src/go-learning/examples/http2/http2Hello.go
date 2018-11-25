@@ -19,6 +19,7 @@ func main() {
 		fmt.Println(request.URL)
 
 		//_, _ = writer.Write([]byte("hello http2"))
+		time.Sleep(200 * time.Millisecond)
 		http.ServeFile(writer, request, "front-end/static/" + request.URL.String())
 	})
 
@@ -37,7 +38,7 @@ func writeImage(writer http.ResponseWriter, request *http.Request) {
 	if request.Method == "GET" {
 		t, _ := template.ParseFiles("front-end/http2.html")
 		writer.Header().Set("Content-Type", "text/html")
-		log.Println(t.Execute(writer, nil))
+		_ = t.Execute(writer, nil)
 	}
 	fmt.Println(request.URL)
 
