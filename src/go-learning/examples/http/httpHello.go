@@ -21,6 +21,8 @@ func main() {
 		}
 	})
 	err := http.ListenAndServe(":9091", nil)
+	//using HTTPS , you’ll be automatically using HTTP/2
+	//err := http.ListenAndServeTLS(":9091","examples/http2/server.crt", "examples/http2/server.key", nil)
 	if err != nil {
 		log.Fatal("ListenAndServe: ", nil)
 	}
