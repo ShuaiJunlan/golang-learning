@@ -61,3 +61,25 @@ func (session *Session) DeleteByUUID() (err error) {
 	_, err = stmt.Exec(session.Uuid)
 	return
 }
+func (session *Session) User() (user User, err error) {
+	user = User{}
+	err = Db.QueryRow("").Scan(&user.Id, &user.Uuid, &user.Name, &user.Email, &user.CreatedAt)
+	return
+}
+
+func SessionDeleteAll() (err error) {
+	statement := ""
+	_, err = Db.Exec(statement)
+	return
+}
+func (user *User) Create() (err error) {
+	statement := ""
+	stmt, err := Db.Prepare(statement)
+	if err != nil {
+		return
+	}
+	defer stmt.Close()
+
+	err = stmt.QueryRow(createUUID(), user.Name, user.Email, Encrypt(user.Password), time.Now()).Scan(&user.Id, &user.Uuid, &user.CreatedAt)
+	return
+}
