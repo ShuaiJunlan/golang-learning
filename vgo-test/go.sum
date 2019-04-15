@@ -1,3 +1,4 @@
+github.com/shuaijunlan/golang-learning v0.0.0-20190415083410-17a7c7a981dc h1:KV6GqXKwLPBaILEPVP/ZyVZZds+5IH0XtFQDR4HPitQ=
 github.com/shuaijunlan/golang-learning/hello v0.0.0-20190415081921-7c17f55496ae h1:iO8dCgmh8+7DGqgo6swH2JYkEbB7Zn8uRysddT2oK7I=
 github.com/shuaijunlan/golang-learning/hello v0.0.0-20190415081921-7c17f55496ae/go.mod h1:wG7HDo8XVqQpKsp9kFFEsFKNJDtTUIcUzuU4WLOqlds=
 golang.org/x/text v0.0.0-20170915032832-14c0d48ead0c h1:qgOY6WgZOaTkIIMiVjBQcw93ERBE4m30iBm00nkL0i8=
